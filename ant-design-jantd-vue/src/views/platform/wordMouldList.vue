@@ -16,6 +16,7 @@
             :expandedKeys="expandedKeys"
             :autoExpandParent="autoExpandParent"
             :treeData="mouldTreeData"
+            @select="mouldTreeSelect"
           >
             <template slot="title" slot-scope="{title}">
               <span v-if="title.indexOf(searchValue) > -1">
@@ -279,42 +280,11 @@ export default {
       },
       upLoadWordMould () {
         this.$refs.wordMouldInfoModalForm.wordMouldModalVisible = true;
+      },
+      mouldTreeSelect (event,e) {
+        console.log('mouldTreeSelect event:', event)
+        console.log('mouldTreeSelect e:', e)
       }
-//      addStructClassification () {
-//        this.classificationModalVisible = true;
-//        this.classificationModalTitle = '新增分类';
-//      },
-//      editStructClassification () {
-//        this.classificationModalVisible = true;
-//        this.classificationModalTitle = '编辑分类';
-//      },
-//      deleteStructClassification () {
-//        this.$confirm({
-//          title: '提示',
-//          content: '确定删除此分类（此操作不可逆）?',
-//          onOk() {
-//            return new Promise((resolve, reject) => {
-//              setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-//            }).catch(() => console.log('Oops errors!'));
-//          },
-//          onCancel() {},
-//        });
-//      },
-//      structTableCheck () {
-//        this.$refs.structInfoModalForm.structModalVisible = true;
-//        this.$refs.structInfoModalForm.title = '结构体信息';
-//        this.$refs.structInfoModalForm.disableSubmit= true;
-//      },
-//      structTableEdit () {
-//        this.$refs.structInfoModalForm.structModalVisible = true;
-//        this.$refs.structInfoModalForm.title = '编辑';
-//        this.$refs.structInfoModalForm.disableSubmit= false;
-//      },
-//      addStructInfo () {
-//        this.$refs.structInfoModalForm.structModalVisible = true;
-//        this.$refs.structInfoModalForm.title = '新增 ';
-//        this.$refs.structInfoModalForm.disableSubmit= false;
-//      }
     },
     mounted () {
       this.dataList = []

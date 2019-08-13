@@ -54,6 +54,7 @@
             :loading="wordMouldTableLoading"
             :pagination="wordMouldTablePagination"
             rowKey="mouldIndexName"
+            :rowSelection="wordMouldTableRowSelection"
           >
           <span slot="wordMouldOperation">
             <a>编辑</a>
@@ -149,7 +150,10 @@ export default {
           total: 0
         },
         createWordMouldModalVisible: false,
-        createWordMouldModalLoading: false
+        createWordMouldModalLoading: false,
+        wordMouldTableRowSelection: {
+          type: 'radio'
+        }
       }
     },
     methods: {
