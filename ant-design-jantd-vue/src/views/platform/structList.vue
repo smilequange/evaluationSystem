@@ -8,7 +8,7 @@
             <a-icon class="struct-classification-list-add-icon" type="plus" @click="addStructClassification" />
           </div>
           <a-input-search @search="onSearch" style="width:100%;margin-top: 10px" placeholder="搜索"/>
-          <div v-for="(item, index) in structListData" class="struct-classification-list-item" :key="index">
+          <div v-for="(item, index) in structListData" class="struct-classification-list-item" :key="index" :tabindex="index">
             <a-icon class="struct-classification-list-item-icon" type="file-text" />
             <span class="struct-classification-list-item-name">{{item.value}}</span>
             <a-icon class="struct-classification-list-item-delete" type="delete" @click="deleteStructClassification" />
@@ -173,6 +173,7 @@ export default {
       addStructClassification () {
         this.classificationModalVisible = true;
         this.classificationModalTitle = '新增分类';
+        this.form.resetFields();
       },
       editStructClassification () {
         this.classificationModalVisible = true;
@@ -204,6 +205,7 @@ export default {
         this.$refs.structInfoModalForm.structModalVisible = true;
         this.$refs.structInfoModalForm.title = '新增 ';
         this.$refs.structInfoModalForm.disableSubmit= false;
+        this.$refs.structInfoModalForm.form.resetFields();
       }
     },
     created() {
@@ -252,5 +254,8 @@ export default {
   }
   .struct-classification-list-item:hover{
     background-color: #d9d9d9;
+  }
+  .struct-classification-list-item:focus{
+    background-color: #2eabff;
   }
 </style>

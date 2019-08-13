@@ -126,7 +126,12 @@
         this.structModalVisible = false;
       },
       handleSubmit () {
-
+        this.form.validateFields((err, values) => {
+          if (!err) {
+            console.log('Received values of form: ', values);
+            this.classificationModalVisible = false;
+          }
+        });
       },
       addStructInfo (index) {
         console.log('addStructInfo index:', index)
