@@ -194,7 +194,8 @@ export default {
           showQuickJumper: true,
           showSizeChanger: true,
           total: 0
-        }
+        },
+        treeSelectedNode: ''
       }
     },
     methods: {
@@ -257,23 +258,62 @@ export default {
         this.wordMouldModalTitle = '新增分类'
       },
       editWordMould () {
-        this.wordMouldModalVisible = true
-        this.wordMouldModalTitle = '编辑分类'
+        if (this.treeSelectedNode && this.treeSelectedNode.length > 0) {
+          this.wordMouldModalVisible = true
+          this.wordMouldModalTitle = '编辑分类'
+        } else {
+          this.$notification.open({
+            message: '提示',
+            description: '请选择需要编辑的模板分类！',
+            duration: 2,
+            style: {
+              width: '600px',
+              marginLeft: `${335 - 600}px`
+            },
+          });
+          return
+        }
       },
       deleteWordMould () {
-        this.$confirm({
-          title: '提示',
-          content: '确定删除此分类（此操作不可逆）?',
-          onOk() {
-            return new Promise((resolve, reject) => {
-              setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
-            }).catch(() => console.log('Oops errors!'));
-          },
-          onCancel() {},
-        });
+        if (this.treeSelectedNode && this.treeSelectedNode.length > 0) {
+          this.$confirm({
+            title: '提示',
+            content: '确定删除此分类（此操作不可逆）?',
+            onOk() {
+              return new Promise((resolve, reject) => {
+                setTimeout(Math.random() > 0.5 ? resolve : reject, 1000);
+              }).catch(() => console.log('Oops errors!'));
+            },
+            onCancel() {},
+          });
+        } else {
+          this.$notification.open({
+            message: '提示',
+            description: '请选择需要删除的模板分类！',
+            duration: 2,
+            style: {
+              width: '600px',
+              marginLeft: `${335 - 600}px`
+            },
+          });
+          return
+        }
       },
       copyWordMould () {
-        this.$refs.createWordMouldModalForm.createWordMouldModalVisible = true;
+        if (this.treeSelectedNode && this.treeSelectedNode.length > 0) {
+          this.$refs.createWordMouldModalForm.createWordMouldModalVisible = true;
+        } else {
+          this.$notification.open({
+            message: '提示',
+            description: '请选择模板分类！',
+            duration: 2,
+            style: {
+              width: '600px',
+              marginLeft: `${335 - 600}px`
+            },
+          });
+          return
+        }
       },
       editWordMouldInfo () {
         this.$refs.wordMouldInfoModalForm.wordMouldModalVisible = true;
@@ -282,12 +322,14 @@ export default {
         this.$refs.wordMouldInfoModalForm.wordMouldModalVisible = true;
       },
       mouldTreeSelect (event,e) {
-        console.log('mouldTreeSelect event:', event)
+        console.log('mouldTreeSelect event[0]:', event[0])
         console.log('mouldTreeSelect e:', e)
+        this.treeSelectedNode = event[0]
       }
     },
     mounted () {
       this.dataList = []
+      this.treeSelectedNode = ''
       this.getGenerateList(this.mouldTreeData)
     },
     created () {
