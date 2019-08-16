@@ -107,8 +107,8 @@
         },
         structModalListData: [
           {
-            structVariable: 'name',
-            structParaType: 'string',
+            structVariable: '',
+            structParaType: '',
             structParaUnit: '',
             structParaMeaning: ''
           }
